@@ -29,8 +29,15 @@ EOH
 * Get da skrilla
 
 The Chef user is `catcora`, password `knivesout`, key is in `/vagrant/shared/catcora.pem`
+
 Also `delivery` exists, password `knivesout`, key is `/vagrant/shared/delivery.pem`
+
 Automate will be set up using `catcora.pem`, the organization/enterprise is `topchef`
+
 You can see a listing of the nodes in the file [`cookbooks/installchef/recipes/default.rb`](./automatecluster/blob/master/default.rb) as hosts file entries to be placed by Chef when the nodes converge.
 
 I don't recommend you use it, though.
+
+## Not Officially Supported
+
+This is something I hacked out in less than an hour and is not officially supported by Chef Software Inc., or even by me. I'm incredibly surprised by the fact that it works on my machine.
