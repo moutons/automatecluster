@@ -1,0 +1,5 @@
+AllCops:
+  Exclude:
+    - 'cookbooks/hostsfile/**/*'
+
+inherit_from: .rubocop_todo.yml

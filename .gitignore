@@ -1,0 +1,10 @@
+packages/*
+shared/*
+
+!packages/.gitinclude
+!shared/.gitinclude
+
+cookbooks/*
+!cookbooks/installchef
+
+.vagrant
