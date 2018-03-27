@@ -1,9 +1,21 @@
 # Install and configure Chef Server for use with the Automate cluster
+require 'mixlib/install'
 
-package 'Install Chef Server' do
-  action :install
-  source '/vagrant/packages/chef-server-core-12.17.33-1.el7.x86_64.rpm'
-  provider Chef::Provider::Package::Rpm
+options = {
+  channel: :stable,
+  product_name: 'chef-server',
+  product_version: :latest,
+  install_command_options: {
+    checksum: "OPTIONAL",
+    install_strategy: "once",
+  }
+}
+
+installscript = Mixlib::Install.new(options).install_command
+
+execute 'Install Chef Server' do
+  command installscript
+  not_if { File.exist?('/etc/opscode/chef-server.rb') }
 end
 
 execute 'Configure Chef Server' do
@@ -41,4 +53,8 @@ bash 'Use default data collector token' do
     echo "data_collector['root_url'] = 'https://automate.top.chef/data-collector/v0/'" | sudo tee /etc/opscode/chef-server.rb
     echo "profiles['root_url'] = 'https://automate.top.chef" | sudo tee /etc/opscode/chef-server.rb
     EOH
+end
+
+execute 'copy /etc/hosts' do
+  command 'cp /etc/hosts /vagrant/shared/'
 end

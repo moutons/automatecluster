@@ -1,7 +1,21 @@
-package 'Install Automate' do
-  action :install
-  source '/vagrant/packages/automate-1.8.3-1.el7.x86_64.rpm'
-  provider Chef::Provider::Package::Rpm
+# Automate setup
+require 'mixlib/install'
+
+options = {
+  channel: :stable,
+  product_name: 'automate',
+  product_version: :latest,
+  install_command_options: {
+    checksum: "OPTIONAL",
+    install_strategy: "once",
+  }
+}
+
+installscript = Mixlib::Install.new(options).install_command
+
+execute 'Install Automate' do
+  command installscript
+  not_if { File.exist?('/etc/delivery/delivery.rb') }
 end
 
 bash 'Preconfigure Automate' do
@@ -17,4 +31,8 @@ end
 
 execute 'Setup Automate' do
   command "automate-ctl setup --license '/vagrant/packages/delivery.license' --key '/vagrant/shared/delivery.pem' --server-url https://chefserver.top.chef/organizations/topchef --fqdn automate.top.chef --enterprise topchef --configure --no-build-node"
+end
+
+execute 'Disable Telemetry' do
+  command "automate-ctl telemetry disable"
 end

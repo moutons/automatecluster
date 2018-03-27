@@ -36,19 +36,27 @@ Vagrant.configure('2') do |config|
     client1.vm.network 'private_network', ip: '10.1.1.11'
     client1.vm.provision 'chef_solo' do |chef|
       chef.add_recipe 'installchef'
-      chef.add_recipe 'installchef::chefclient'
     end
   end
 
   config.vm.define 'client2' do |client2|
+    client2.vm.box = 'bento/ubuntu-16.04'
     client2.vm.hostname = 'client2.top.chef'
     client2.vm.network 'private_network', ip: '10.1.1.12'
     client2.vm.provision 'chef_solo' do |chef|
       chef.add_recipe 'installchef'
-      chef.add_recipe 'installchef::chefclient'
     end
   end
 
+  config.vm.define 'client3' do |client3|
+    client3.vm.box = 'mwrock/Windows2016'
+    client3.vm.hostname = 'client3'
+    client3.vm.network 'private_network', ip: '10.1.1.13'
+    client3.vm.provision 'chef_solo' do |chef|
+      chef.add_recipe 'installchef'
+    end
+  end
+  
   config.vm.define 'runner1' do |runner1|
     runner1.vm.hostname = 'runner1.top.chef'
     runner1.vm.network 'private_network', ip: '10.1.1.21'

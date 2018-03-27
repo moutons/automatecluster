@@ -30,12 +30,15 @@ cleanup: preflight ## clean up pemfiles and destroy all machines
 clean: cleanup
 
 clusterup: preflight ## build the cluster
+	-rm shared/*.pem
+	-vagrant destroy -f
 	-vagrant up chefserver
 	-echo -e "\n\nChef Server Up!\n\n"
 	-vagrant up automate
 	-echo -e "\n\nAutomate Server Up!\n\n"
 	-vagrant up client1
 	-vagrant up client2
+	-vagrant up client3
 	-vagrant up runner1
 
 cluster: clusterup
@@ -44,5 +47,12 @@ autoup: preflight ## just build chefserver and automate
 	-vagrant up chefserver
 	-echo -e "\n\nChef Server Up!\n\n"
 	-vagrant up automate
+	-echo -e "\n\nAutomate Up!\n\n"
 
 auto: autoup
+
+chefup: preflight ## just build chefserver and automate
+	-vagrant up chefserver
+	-echo -e "\n\nChef Server Up!\n\n"
+
+chef: chefup

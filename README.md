@@ -34,6 +34,8 @@ Also `delivery` exists, password `knivesout`, key is `/vagrant/shared/delivery.p
 
 Automate will be set up using `catcora.pem`, the organization/enterprise is `topchef`
 
+Check the output of the Vagrant provisioning for the automate server for your Automate admin login.
+
 You can see a listing of the nodes in the file [`cookbooks/installchef/recipes/default.rb`](./automatecluster/blob/master/default.rb) as hosts file entries to be placed by Chef when the nodes converge.
 
 I don't recommend you use it, though.

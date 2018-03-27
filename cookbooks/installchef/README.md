@@ -6,7 +6,7 @@ This isn't the way _you_ should do it, but it's the way I did it today because I
 
 ## usage
 
-* Download your own packages, put them in the `./packages` directory in this repo
+* ~Download your own packages, put them in the `./packages` directory in this repo~Not anymore, uses mixlib now.
 * If applicable change the filenames in the `./cookbooks/installchef/recipes/*.rb` files
 * Drop your delivery.license file in the `./packages` directory
 
