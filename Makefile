@@ -3,6 +3,8 @@
 SHELL := /bin/bash
 VAGRANT := $(shell command -v vagrant 2> /dev/null)
 VBOXMANAGE := $(shell command -v VBoxManage 2> /dev/null)
+HOSTSFILE := $(shell if [ -d cookbooks/hostsfile ] ; then echo yes ; fi)
+
 
 default: help
 
@@ -21,6 +23,9 @@ ifndef VAGRANT
 endif
 ifndef VBOXMANAGE
 	$(error "vboxmanage not found in PATH - is it installed?")
+endif
+ifndef HOSTSFILE
+	$(error "run 'cd cookbooks ; knife cookbook site download hostsfile ; tar xf hostsfile-* ; rm hostsfile-*.gz ; cd ..'")
 endif
 
 cleanup: preflight ## clean up pemfiles and destroy all machines
