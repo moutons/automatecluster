@@ -39,7 +39,7 @@ Vagrant.configure('2') do |config|
     end
   end
 
-  config.vm.define 'client2' do |client2|
+  config.vm.define 'client2' autostart: false do |client2|
     client2.vm.box = 'bento/ubuntu-16.04'
     client2.vm.hostname = 'client2.top.chef'
     client2.vm.network 'private_network', ip: '10.1.1.12'
@@ -48,7 +48,7 @@ Vagrant.configure('2') do |config|
     end
   end
 
-  config.vm.define 'client3' do |client3|
+  config.vm.define 'client3' autostart: false do |client3|
     client3.vm.box = 'mwrock/Windows2016'
     client3.vm.hostname = 'client3'
     client3.vm.network 'private_network', ip: '10.1.1.13'
